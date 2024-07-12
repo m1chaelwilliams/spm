@@ -10,8 +10,9 @@ My personal terminal-based project manager.
 |`remove`|🟡|
 |`list`|🟡|
 |`copypath`|✅|
-|`Contains`|✅|
+|`contains`|✅|
 |`help`|✅|
+|`lookup`|✅|
 
 # Copyright
 
