@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"log"
@@ -41,8 +42,14 @@ func (a *AddCmd) Execute(args []string, projData *data.ProjectData) error {
 	name := a.flagSet.Lookup("name").Value.String()
 	path := a.flagSet.Lookup("path").Value.String()
 
-	if len(a.flagSet.Args()) > 0 {
-		path = a.flagSet.Arg(0)
+	fmt.Printf("Name: %s\n", name)
+
+	if path == "." {
+		if len(a.flagSet.Args()) > 0 {
+			path = a.flagSet.Arg(0)
+		} else {
+			return errors.New("not enough arguments. must at least provide a path")
+		}
 	}
 
 	// if cwd
@@ -53,15 +60,15 @@ func (a *AddCmd) Execute(args []string, projData *data.ProjectData) error {
 		}
 
 		path = cwd
+
+		if name == "" {
+			name = filepath.Base(path)
+		}
 	}
 
 	// ensure the path exists
 	if _, err := os.Stat(path); err != nil {
 		return err
-	}
-
-	if name == "" {
-		name = filepath.Base(path)
 	}
 
 	fmt.Printf("Adding: %s, %s\n", name, path)

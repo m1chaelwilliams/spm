@@ -26,7 +26,11 @@ func NewLookupCmd() *LookupCmd {
 
 func (l *LookupCmd) Execute(args []string, projData *data.ProjectData) error {
 
-	l.flagSet.Parse(args[2:])
+	err := l.flagSet.Parse(args[2:])
+	if err != nil {
+		return err
+	}
+
 	name := l.flagSet.Lookup("name").Value.String()
 
 	if name == "" && len(l.flagSet.Args()) > 0 {

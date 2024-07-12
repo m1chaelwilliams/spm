@@ -6,13 +6,17 @@ My personal terminal-based project manager.
 
 |Feature|Status|
 |-------|------|
-|`add`|🟡|
-|`remove`|🟡|
-|`list`|🟡|
+|`add`|✅|
+|`remove`|✅|
+|`list`|✅|
 |`copypath`|✅|
 |`contains`|✅|
 |`help`|✅|
 |`lookup`|✅|
+|`init`|✅|
+|`load`|✅|
+
+For more information, run `tpm --help` to get detailed instructions for each command
 
 # Copyright
 

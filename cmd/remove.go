@@ -32,7 +32,15 @@ func (r *RemoveCmd) Execute(args []string, projData *data.ProjectData) error {
 	}
 
 	name := r.flagSet.Lookup("name").Value.String()
+
 	if name == "" {
+		if len(r.flagSet.Args()) > 0 {
+			name = r.flagSet.Arg(0)
+		} else {
+			return fmt.Errorf("no project name provided")
+		}
+	}
+	if name == "." {
 		cwd, err := os.Getwd()
 		if err != nil {
 			return err
