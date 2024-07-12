@@ -3,6 +3,7 @@ package cmd
 import (
 	"flag"
 	"fmt"
+	"sort"
 	"tpm/data"
 
 	"github.com/fatih/color"
@@ -21,8 +22,15 @@ func NewHelpCmd() *HelpCmd {
 func (h *HelpCmd) Execute(args []string, projData *data.ProjectData) error {
 
 	fmt.Println(color.BlueString("TMP | Terminal Project Manager"))
-	for _, cmd := range commands {
-		fmt.Println(cmd.Help())
+
+	keys := make([]string, 0)
+	for key := range commands {
+		keys = append(keys, key)
+	}
+
+	sort.Strings(keys)
+	for _, key := range keys {
+		fmt.Println(commands[key].Help())
 	}
 
 	return nil
