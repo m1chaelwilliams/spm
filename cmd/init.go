@@ -10,7 +10,7 @@ import (
 	"github.com/fatih/color"
 )
 
-//go:embed templates/tpmproj.json
+//go:embed templates/spmproj.json
 var template []byte
 
 type InitCmd struct {
@@ -39,7 +39,7 @@ func (i *InitCmd) Execute(args []string, projData *data.ProjectData) error {
 
 	path := cwd
 
-	f, err := os.Create("tpmproj.json")
+	f, err := os.Create("spmproj.json")
 	if err != nil {
 		return err
 	}
