@@ -5,7 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"tpm/data"
+	"spm/data"
 
 	"github.com/fatih/color"
 )

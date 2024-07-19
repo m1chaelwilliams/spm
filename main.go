@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"tpm/cmd"
-	"tpm/utils"
+	"spm/cmd"
+	"spm/utils"
 
 	"github.com/fatih/color"
 )

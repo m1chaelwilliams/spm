@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"flag"
-	"tpm/data"
-	"tpm/utils"
+	"spm/data"
+	"spm/utils"
 )
 
 type Command interface {

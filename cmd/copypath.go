@@ -3,7 +3,7 @@ package cmd
 import (
 	"flag"
 	"fmt"
-	"tpm/data"
+	"spm/data"
 
 	"github.com/fatih/color"
 	"golang.design/x/clipboard"
@@ -31,6 +31,11 @@ func (c *CopyPathCmd) Execute(args []string, projData *data.ProjectData) error {
 	}
 
 	name := c.flagSet.Lookup("name").Value.String()
+	if name == "" {
+		if len(c.flagSet.Args()) > 0 {
+			name = c.flagSet.Arg(0)
+		}
+	}
 
 	var path *string = nil
 

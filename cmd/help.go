@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"sort"
-	"tpm/data"
+	"spm/data"
 
 	"github.com/fatih/color"
 )
@@ -21,7 +21,8 @@ func NewHelpCmd() *HelpCmd {
 
 func (h *HelpCmd) Execute(args []string, projData *data.ProjectData) error {
 
-	fmt.Println(color.BlueString("TMP | Terminal Project Manager"))
+	fmt.Println(color.BlueString("SPM | Simple Project Manager"))
+	fmt.Println()
 
 	keys := make([]string, 0)
 	for key := range commands {

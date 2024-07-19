@@ -7,9 +7,9 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"spm/data"
+	"spm/utils"
 	"strings"
-	"tpm/data"
-	"tpm/utils"
 
 	"github.com/fatih/color"
 )

@@ -5,27 +5,34 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"path/filepath"
+	"spm/data"
+	"spm/shared"
 	"strings"
-	"tpm/data"
 
 	"github.com/fatih/color"
 )
 
-const projectFilePath = "projects.json"
-
-func openProjectsFile() ([]byte, error) {
-	return os.ReadFile(projectFilePath)
+func openProjectsFile(exePath string) ([]byte, error) {
+	return os.ReadFile(filepath.Join(exePath, shared.PROJECT_DATA_FILEPATH))
 }
 
 func GetProjectData() (*data.ProjectData, error) {
 
-	fileContents, err := openProjectsFile()
+	exePath, err := os.Executable()
+	if err != nil {
+		return nil, err
+	}
+	exePath = filepath.Dir(exePath)
+
+	fileContents, err := openProjectsFile(exePath)
 	if err != nil {
 		return nil, err
 	}
 
 	var projectData data.ProjectData
 	err = json.Unmarshal(fileContents, &projectData)
+	projectData.ExePath = exePath
 
 	return &projectData, err
 }

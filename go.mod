@@ -1,4 +1,4 @@
-module tpm
+module spm
 
 go 1.22.4
 

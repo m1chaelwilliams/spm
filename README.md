@@ -1,4 +1,4 @@
-# TPM | Terminal Project Manager
+# SPM | Simple Project Manager
 
 My personal terminal-based project manager.
 

@@ -5,7 +5,8 @@ import (
 	"errors"
 	"fmt"
 	"os"
-	"tpm/shared"
+	"path/filepath"
+	"spm/shared"
 
 	"github.com/fatih/color"
 )
@@ -34,6 +35,7 @@ func (p *Project) ToStringDetailed() string {
 
 type ProjectData struct {
 	Projects []*Project
+	ExePath  string
 }
 
 func (p *ProjectData) CheckDuplicates(newProj *Project) *Project {
@@ -98,8 +100,21 @@ func (p *ProjectData) Serialize() error {
 	}
 
 	return os.WriteFile(
-		shared.PROJECT_DATA_FILEPATH,
+		filepath.Join(p.ExePath, shared.PROJECT_DATA_FILEPATH),
 		projDataString,
 		shared.FILEMODE_WRITE,
 	)
+}
+
+func (p *ProjectData) UpdateProject(proj *Project) error {
+	target, exists := p.FindProject(proj.Name)
+	if !exists {
+		return errors.New("project does not exist")
+	}
+
+	target.Name = proj.Name
+	target.Path = proj.Path
+	target.MetaData = proj.MetaData
+
+	return nil
 }

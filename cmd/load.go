@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"tpm/data"
+	"spm/data"
 )
 
 type LoadCmd struct {
@@ -85,7 +85,11 @@ func (l *LoadCmd) Execute(args []string, projData *data.ProjectData) error {
 	}
 
 	fmt.Println("Adding project")
-	projData.Projects = append(projData.Projects, &newProj)
+
+	// if project does not exist, append new project
+	if err = projData.UpdateProject(&newProj); err != nil {
+		projData.Projects = append(projData.Projects, &newProj)
+	}
 
 	return nil
 }

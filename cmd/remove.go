@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"tpm/data"
+	"spm/data"
 
 	"github.com/fatih/color"
 )
