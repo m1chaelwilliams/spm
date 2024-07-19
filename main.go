@@ -29,7 +29,7 @@ func main() {
 		log.Fatal(redErr(err))
 	}
 
-	projData, err := utils.GetProjectData()
+	projData, err := utils.GetProjectData(args[1])
 	if err != nil {
 		log.Fatal(redErr(err))
 	}

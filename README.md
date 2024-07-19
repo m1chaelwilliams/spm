@@ -20,13 +20,13 @@ I'm a person that likes to start projects every other day. I have lists and list
 |`init`|✅|
 |`load`|✅|
 
-For more information, run `tpm --help` to get detailed instructions for each command
+For more information, run `spm --help` to get detailed instructions for each command
 
 # Installation
 
 1. Clone the repository:
 ```shell
-git clone https://github.com/m1chaelwilliams/tpm.git
+git clone https://github.com/m1chaelwilliams/spm.git
 ```
 2. Add it to your __PATH__ environment variables
 3. Spin up the database:

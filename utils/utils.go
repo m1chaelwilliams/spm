@@ -17,13 +17,20 @@ func openProjectsFile(exePath string) ([]byte, error) {
 	return os.ReadFile(filepath.Join(exePath, shared.PROJECT_DATA_FILEPATH))
 }
 
-func GetProjectData() (*data.ProjectData, error) {
+func GetProjectData(arg string) (*data.ProjectData, error) {
 
 	exePath, err := os.Executable()
 	if err != nil {
 		return nil, err
 	}
 	exePath = filepath.Dir(exePath)
+
+	if arg == "spinup" {
+		return &data.ProjectData{
+			Projects: make([]*data.Project, 0),
+			ExePath:  exePath,
+		}, nil
+	}
 
 	fileContents, err := openProjectsFile(exePath)
 	if err != nil {
