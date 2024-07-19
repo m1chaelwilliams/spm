@@ -16,6 +16,7 @@ var commands map[string]Command = map[string]Command{
 	"lookup":   NewLookupCmd(),
 	"init":     NewInitCmd(),
 	"load":     NewLoadCmd(),
+	"spinup":   NewSpinupCmd(),
 }
 
 func GetCommand(args []string) (Command, error) {

@@ -22,6 +22,18 @@ I'm a person that likes to start projects every other day. I have lists and list
 
 For more information, run `tpm --help` to get detailed instructions for each command
 
+# Installation
+
+1. Clone the repository:
+```shell
+git clone https://github.com/m1chaelwilliams/tpm.git
+```
+2. Add it to your __PATH__ environment variables
+3. Spin up the database:
+```shell
+spm spinup
+```
+
 # Example Usage
 
 All of the commands are intuitive with useful shortcuts to make things faster. For example, adding a project can look like:
