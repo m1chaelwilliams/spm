@@ -3,9 +3,10 @@ package cmd
 import (
 	"flag"
 	"fmt"
-	"spm/data"
 
 	"github.com/fatih/color"
+
+	"spm/data"
 )
 
 type EditCmd struct {
@@ -13,7 +14,6 @@ type EditCmd struct {
 }
 
 func NewEditCmd() *EditCmd {
-
 	flagSet := flag.NewFlagSet("edit", flag.ContinueOnError)
 	flagSet.String("target", "", "name of the target project")
 	flagSet.String("name", "", "name of the target project")
@@ -25,7 +25,6 @@ func NewEditCmd() *EditCmd {
 }
 
 func (e *EditCmd) Execute(args []string, projData *data.ProjectData) error {
-
 	err := e.flagSet.Parse(args[2:])
 	if err != nil {
 		return err
@@ -50,4 +49,8 @@ func (e *EditCmd) Execute(args []string, projData *data.ProjectData) error {
 	}
 
 	return fmt.Errorf("%s does not exist", targetName)
+}
+
+func (e *EditCmd) Serialize(args []string, projData *data.ProjectData) error {
+	return projData.Serialize()
 }

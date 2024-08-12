@@ -36,13 +36,13 @@ func (l *LoadCmd) Execute(args []string, projData *data.ProjectData) error {
 	// if cwd
 	if path == "." {
 		if len(l.flagSet.Args()) > 0 {
-			path = filepath.Join(l.flagSet.Arg(0), "tpmproj.json")
+			path = filepath.Join(l.flagSet.Arg(0), "spmproj.json")
 		} else {
 			cwd, err := os.Getwd()
 			if err != nil {
 				return err
 			}
-			path = filepath.Join(cwd, "tpmproj.json")
+			path = filepath.Join(cwd, "spmproj.json")
 		}
 	}
 

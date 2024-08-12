@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"spm/data"
+	"spm/utils"
 
 	"github.com/fatih/color"
 )
@@ -44,8 +45,14 @@ func (l *LookupCmd) Execute(args []string, projData *data.ProjectData) error {
 		for key, value := range proj.MetaData {
 			fmt.Printf("- %-20s = %s\n", color.BlueString(key), color.YellowString("%v", value))
 		}
+
+		proj.MetaData["last_queried"] = utils.GetDateStr()
 		return nil
 	}
 
 	return fmt.Errorf("could not find project: %s", name)
+}
+
+func (l *LookupCmd) Serialize(args []string, projData *data.ProjectData) error {
+	return projData.Serialize()
 }

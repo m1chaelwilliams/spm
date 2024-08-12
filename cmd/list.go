@@ -11,15 +11,18 @@ import (
 type List struct {
 	*defaultCmd
 	detailed *bool
+	sortBy   *string
 }
 
 func NewList() *List {
 	flagSet := flag.NewFlagSet("list", flag.ContinueOnError)
 	detailed := flagSet.Bool("detailed", false, "give more info for each project")
+	sortBy := flagSet.String("sortBy", "alphabet", "sort by this metadata field.")
 
 	return &List{
 		defaultCmd: newDefaultCmd(flagSet),
 		detailed:   detailed,
+		sortBy:     sortBy,
 	}
 }
 

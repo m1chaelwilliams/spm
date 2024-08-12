@@ -6,9 +6,10 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"spm/shared"
 
 	"github.com/fatih/color"
+
+	"spm/shared"
 )
 
 type Project struct {
@@ -30,7 +31,11 @@ func (p *Project) ToString() string {
 }
 
 func (p *Project) ToStringDetailed() string {
-	return fmt.Sprintf("Name: %-30s Path: %-30s", color.GreenString(p.Name), color.GreenString(p.Path))
+	return fmt.Sprintf(
+		"Name: %-30s Path: %-30s",
+		color.GreenString(p.Name),
+		color.GreenString(p.Path),
+	)
 }
 
 type ProjectData struct {
@@ -39,7 +44,6 @@ type ProjectData struct {
 }
 
 func (p *ProjectData) CheckDuplicates(newProj *Project) *Project {
-
 	for _, project := range p.Projects {
 		if project.Name == newProj.Name {
 			return project
@@ -118,3 +122,38 @@ func (p *ProjectData) UpdateProject(proj *Project) error {
 
 	return nil
 }
+
+// sorts by the metadata target key
+// returns the sorted list plus items that do not have that data
+// func (p ProjectData) SortBy(metaTarget string) ([]*Project, []*Project, error) {
+//
+// 	if !utils.IsSupportedSortStrategy(metaTarget) {
+// 		return nil, nil, errors.New("sorting strategy is unsupported")
+// 	}
+//
+// 	projects := make([]*Project, 0)
+// 	outliers := make([]*Project, 0)
+//
+// 	for i := range p.Projects {
+//
+// 	inner:
+// 		for j := range p.Projects {
+// 			switch metaTarget {
+// 			case "date_added":
+// 				date1, exists := p.Projects[i].MetaData["date_added"].(string)
+// 				if exists == false {
+// 					break inner
+// 				}
+// 				date2, exists := p.Projects[j].MetaData["date_added"].(string)
+// 				if exists == false {
+// 					continue
+// 				}
+// 				if utils.IsDateStrLess(date1, date2) {
+// 					// wip
+// 				}
+// 			}
+// 		}
+// 	}
+//
+// 	return projects, outliers, nil
+// }

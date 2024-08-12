@@ -73,10 +73,16 @@ func (a *AddCmd) Execute(args []string, projData *data.ProjectData) error {
 
 	fmt.Printf("Adding: %s, %s\n", name, path)
 
+	// get date added
+	dateStr := utils.GetDateStr()
+
 	newProj := *data.NewProject(
 		name,
 		path,
-		make(map[string]any, 0),
+		map[string]any{
+			"date_added":   dateStr,
+			"last_queried": dateStr,
+		},
 	)
 
 	addProj := true
