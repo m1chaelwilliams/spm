@@ -2,45 +2,66 @@ package utils
 
 import (
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
-	"spm/data"
-	"spm/shared"
+	"runtime"
 	"strings"
 	"time"
 
 	"github.com/fatih/color"
+
+	"spm/data"
+	"spm/shared"
 )
 
 func openProjectsFile(exePath string) ([]byte, error) {
 	return os.ReadFile(filepath.Join(exePath, shared.PROJECT_DATA_FILEPATH))
 }
 
-func GetProjectData(arg string) (*data.ProjectData, error) {
+func GetProjectPath() (string, error) {
+	switch runtime.GOOS {
+	case "linux":
+		xdgHome, exists := os.LookupEnv("XDG_DATA_HOME")
+		if !exists {
+			home, exists := os.LookupEnv("HOME")
+			if !exists {
+				return "", errors.New(
+					"$HOME is not set. Unable to locate proper data storage directory",
+				)
+			}
+			return fmt.Sprintf("%s/.local/share/spm", home), nil
+		}
+		return fmt.Sprintf("%s/spm", xdgHome), nil
+	default:
+		return "", fmt.Errorf("unsupported OS: %s", runtime.GOOS)
+	}
+}
 
-	exePath, err := os.Executable()
+func GetProjectData(arg string) (*data.ProjectData, error) {
+	projectDataPath, err := GetProjectPath()
 	if err != nil {
 		return nil, err
 	}
-	exePath = filepath.Dir(exePath)
+	os.MkdirAll(projectDataPath, 0o777)
 
 	if arg == "spinup" {
 		return &data.ProjectData{
 			Projects: make([]*data.Project, 0),
-			ExePath:  exePath,
+			DataPath: projectDataPath,
 		}, nil
 	}
 
-	fileContents, err := openProjectsFile(exePath)
+	fileContents, err := openProjectsFile(projectDataPath)
 	if err != nil {
 		return nil, err
 	}
 
 	var projectData data.ProjectData
 	err = json.Unmarshal(fileContents, &projectData)
-	projectData.ExePath = exePath
+	projectData.DataPath = projectDataPath
 
 	return &projectData, err
 }

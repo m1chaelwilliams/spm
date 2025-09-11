@@ -6,9 +6,10 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"spm/data"
 
 	"github.com/fatih/color"
+
+	"spm/data"
 )
 
 type SpinupCmd struct {
@@ -16,7 +17,6 @@ type SpinupCmd struct {
 }
 
 func NewSpinupCmd() *SpinupCmd {
-
 	flagSet := flag.NewFlagSet("spinup", flag.ContinueOnError)
 
 	return &SpinupCmd{
@@ -25,7 +25,7 @@ func NewSpinupCmd() *SpinupCmd {
 }
 
 func (s *SpinupCmd) Execute(args []string, projData *data.ProjectData) error {
-	path := filepath.Join(projData.ExePath, "projects.json")
+	path := filepath.Join(projData.DataPath, "projects.json")
 
 	if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
 		_, err := os.Create(path)
