@@ -2,7 +2,6 @@ package utils
 
 import (
 	"encoding/json"
-	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -17,24 +16,32 @@ import (
 	"spm/shared"
 )
 
-func openProjectsFile(exePath string) ([]byte, error) {
-	return os.ReadFile(filepath.Join(exePath, shared.PROJECT_DATA_FILEPATH))
+func openProjectsFile(dataPath string) ([]byte, error) {
+	return os.ReadFile(filepath.Join(dataPath, shared.PROJECT_DATA_FILEPATH))
 }
 
+// get the data directory where the projects.json file is stored
 func GetProjectPath() (string, error) {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+
 	switch runtime.GOOS {
 	case "linux":
 		xdgHome, exists := os.LookupEnv("XDG_DATA_HOME")
 		if !exists {
-			home, exists := os.LookupEnv("HOME")
-			if !exists {
-				return "", errors.New(
-					"$HOME is not set. Unable to locate proper data storage directory",
-				)
-			}
-			return fmt.Sprintf("%s/.local/share/spm", home), nil
+			return filepath.Join(home, ".local", "share", "spm"), nil
 		}
-		return fmt.Sprintf("%s/spm", xdgHome), nil
+		return filepath.Join(xdgHome, "spm"), nil
+	case "darwin":
+		return filepath.Join(home, "Library", "Application Support", "spm"), nil
+	case "windows":
+		appData, exists := os.LookupEnv("APPDATA")
+		if !exists {
+			appData = filepath.Join(home, "AppData", "Roaming")
+		}
+		return filepath.Join(appData, "spm"), nil
 	default:
 		return "", fmt.Errorf("unsupported OS: %s", runtime.GOOS)
 	}
