@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"spm/cmd"
-	"spm/utils"
 
 	"github.com/fatih/color"
+
+	"spm/cmd"
+	"spm/utils"
 )
 
 func redErr(err error) string {
@@ -17,7 +18,6 @@ func redErr(err error) string {
 }
 
 func main() {
-
 	args := os.Args
 	if len(args) < 2 {
 		log.Fatal(redErr(errors.New("not enough arguments")))

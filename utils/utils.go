@@ -6,41 +6,69 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
-	"spm/data"
-	"spm/shared"
+	"runtime"
 	"strings"
 	"time"
 
 	"github.com/fatih/color"
+
+	"spm/data"
+	"spm/shared"
 )
 
-func openProjectsFile(exePath string) ([]byte, error) {
-	return os.ReadFile(filepath.Join(exePath, shared.PROJECT_DATA_FILEPATH))
+func openProjectsFile(dataPath string) ([]byte, error) {
+	return os.ReadFile(filepath.Join(dataPath, shared.PROJECT_DATA_FILEPATH))
+}
+
+// get the data directory where the projects.json file is stored
+func GetProjectPath() (string, error) {
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+
+	switch runtime.GOOS {
+	case "linux":
+		xdgHome, exists := os.LookupEnv("XDG_DATA_HOME")
+		if !exists {
+			return filepath.Join(home, ".local", "share", "spm"), nil
+		}
+		return filepath.Join(xdgHome, "spm"), nil
+	case "darwin":
+		return filepath.Join(home, "Library", "Application Support", "spm"), nil
+	case "windows":
+		appData, exists := os.LookupEnv("APPDATA")
+		if !exists {
+			appData = filepath.Join(home, "AppData", "Roaming")
+		}
+		return filepath.Join(appData, "spm"), nil
+	default:
+		return "", fmt.Errorf("unsupported OS: %s", runtime.GOOS)
+	}
 }
 
 func GetProjectData(arg string) (*data.ProjectData, error) {
-
-	exePath, err := os.Executable()
+	projectDataPath, err := GetProjectPath()
 	if err != nil {
 		return nil, err
 	}
-	exePath = filepath.Dir(exePath)
+	os.MkdirAll(projectDataPath, 0o777)
 
 	if arg == "spinup" {
 		return &data.ProjectData{
 			Projects: make([]*data.Project, 0),
-			ExePath:  exePath,
+			DataPath: projectDataPath,
 		}, nil
 	}
 
-	fileContents, err := openProjectsFile(exePath)
+	fileContents, err := openProjectsFile(projectDataPath)
 	if err != nil {
 		return nil, err
 	}
 
 	var projectData data.ProjectData
 	err = json.Unmarshal(fileContents, &projectData)
-	projectData.ExePath = exePath
+	projectData.DataPath = projectDataPath
 
 	return &projectData, err
 }

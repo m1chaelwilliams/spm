@@ -40,7 +40,7 @@ func (p *Project) ToStringDetailed() string {
 
 type ProjectData struct {
 	Projects []*Project
-	ExePath  string
+	DataPath string
 }
 
 func (p *ProjectData) CheckDuplicates(newProj *Project) *Project {
@@ -104,7 +104,7 @@ func (p *ProjectData) Serialize() error {
 	}
 
 	return os.WriteFile(
-		filepath.Join(p.ExePath, shared.PROJECT_DATA_FILEPATH),
+		filepath.Join(p.DataPath, shared.PROJECT_DATA_FILEPATH),
 		projDataString,
 		shared.FILEMODE_WRITE,
 	)
