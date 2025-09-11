@@ -12,8 +12,8 @@ import (
 
 	"github.com/fatih/color"
 
-	"spm/data"
-	"spm/shared"
+	"github.com/vimichael/spm/data"
+	"github.com/vimichael/spm/shared"
 )
 
 func openProjectsFile(dataPath string) ([]byte, error) {
@@ -33,7 +33,7 @@ func GetProjectPath() (string, error) {
 		if !exists {
 			return filepath.Join(home, ".local", "share", "spm"), nil
 		}
-		return filepath.Join(xdgHome, "spm"), nil
+		return filepath.Join(xdgHome, "github.com/vimichael/spm"), nil
 	case "darwin":
 		return filepath.Join(home, "Library", "Application Support", "spm"), nil
 	case "windows":

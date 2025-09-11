@@ -8,8 +8,8 @@ import (
 
 	"github.com/fatih/color"
 
-	"spm/cmd"
-	"spm/utils"
+	"github.com/vimichael/spm/cmd"
+	"github.com/vimichael/spm/utils"
 )
 
 func redErr(err error) string {

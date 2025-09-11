@@ -9,7 +9,7 @@ import (
 
 	"github.com/fatih/color"
 
-	"spm/data"
+	"github.com/vimichael/spm/data"
 )
 
 type SpinupCmd struct {

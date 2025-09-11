@@ -9,7 +9,7 @@ import (
 
 	"github.com/fatih/color"
 
-	"spm/shared"
+	"github.com/vimichael/spm/shared"
 )
 
 type Project struct {

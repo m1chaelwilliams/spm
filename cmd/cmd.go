@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"flag"
-	"spm/data"
-	"spm/utils"
+	"github.com/vimichael/spm/data"
+	"github.com/vimichael/spm/utils"
 )
 
 type Command interface {

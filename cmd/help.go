@@ -4,7 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"sort"
-	"spm/data"
+	"github.com/vimichael/spm/data"
 
 	"github.com/fatih/color"
 )

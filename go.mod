@@ -1,4 +1,4 @@
-module spm
+module github.com/vimichael/spm
 
 go 1.22.4
 

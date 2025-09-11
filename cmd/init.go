@@ -5,9 +5,10 @@ import (
 	"flag"
 	"fmt"
 	"os"
-	"spm/data"
 
 	"github.com/fatih/color"
+
+	"github.com/vimichael/spm/data"
 )
 
 //go:embed templates/spmproj.json
@@ -18,7 +19,6 @@ type InitCmd struct {
 }
 
 func NewInitCmd() *InitCmd {
-
 	flagSet := flag.NewFlagSet("init", flag.ContinueOnError)
 
 	return &InitCmd{
@@ -39,7 +39,7 @@ func (i *InitCmd) Execute(args []string, projData *data.ProjectData) error {
 
 	path := cwd
 
-	f, err := os.Create("spmproj.json")
+	f, err := os.Create("github.com/vimichael/spmproj.json")
 	if err != nil {
 		return err
 	}

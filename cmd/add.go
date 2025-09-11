@@ -7,8 +7,8 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"spm/data"
-	"spm/utils"
+	"github.com/vimichael/spm/data"
+	"github.com/vimichael/spm/utils"
 	"strings"
 
 	"github.com/fatih/color"

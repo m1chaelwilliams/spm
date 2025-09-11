@@ -3,7 +3,7 @@ package cmd
 import (
 	"flag"
 	"fmt"
-	"spm/data"
+	"github.com/vimichael/spm/data"
 	"strings"
 
 	"github.com/fatih/color"
